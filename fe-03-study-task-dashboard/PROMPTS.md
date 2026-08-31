@@ -1,86 +1,117 @@
-# FE-03 Prompts
+# AI Development Prompts
 
-## Prompt 1 — Initial Planning
+## Prompt 1 — Project Setup and Architecture
 
-I want to build a small React application called "Study Task Dashboard" for my frontend AI engineering capstone.
+> Build a small Study Task Dashboard using React and Vite. Keep the application beginner-friendly and use React state, props, and one custom hook where appropriate. The application should allow users to add tasks, select a category, mark tasks as completed, delete tasks, filter tasks by status and category, display task statistics, and persist tasks using localStorage.
+>
+> Use a component structure with App, Header, TaskStats, TaskForm, TaskFilters, TaskList, and TaskItem. Keep task state centralized and pass data and callbacks through props. Avoid Redux, Context, React Router, UI libraries, and unnecessary dependencies.
 
-Before writing any code:
+## Prompt 2 — Task State and Persistence
 
-1. Inspect the current repository structure.
-2. Propose a simple React architecture and component structure.
-3. List the files you recommend creating.
-4. Explain briefly how state will flow between the components.
-5. Do not create or modify any files yet.
+> Implement task state management using a custom useTasks hook. Store tasks in localStorage and load them when the application starts. Save the tasks whenever they change. Handle invalid JSON and unavailable localStorage safely so the application does not crash.
 
-The application should eventually support:
+## Prompt 3 — Filtering and Statistics
 
-- Adding study tasks
-- Task title and category
-- Categories: DSA, Frontend, College
-- Marking tasks complete/incomplete
+> Add status and category filters to the Study Task Dashboard. The filters should support all, completed, and pending statuses, as well as all available task categories. Calculate total, completed, and pending counts from the complete task list rather than the filtered list.
+
+## Prompt 4 — Responsive UI
+
+> Create a clean, simple, responsive CSS layout for the Study Task Dashboard. It should work well on mobile and larger screens using CSS Grid/Flexbox and a small number of media queries. Keep the interface accessible with labels, keyboard focus styles, and appropriate ARIA attributes.
+
+## Prompt 5 — Validation and Edge Cases
+
+> Review the task form for validation and edge cases. Empty and whitespace-only task titles should be rejected. Also make sure titles containing only punctuation, such as "." or "!!!", are rejected while normal titles containing letters or numbers are accepted.
+
+## Prompt 6 — Review and Testing
+
+> Review the completed application and verify the main user flows: adding tasks, completing tasks, deleting tasks, filtering by status and category, displaying correct statistics, and persisting tasks after a page reload. Also check for build and lint errors.
+
+---
+
+# Manual Improvements and Corrections
+
+The AI-generated implementation was reviewed manually and several issues were identified and corrected.
+
+### 1. Punctuation-only task titles
+
+The initial validation handled empty input but allowed values such as `"."` to be added as tasks.
+
+I manually reviewed the validation logic and added a check requiring at least one letter or number:
+
+```js
+if (!/[A-Za-z0-9]/.test(trimmedTitle)) {
+  setError("Title must include a letter or number.");
+  return;
+}
+```
+
+This prevents meaningless punctuation-only titles while still allowing normal task names.
+
+### 2. Long task titles affecting the UI
+
+I tested the application with a very long task title and noticed that the task layout could be affected.
+
+I manually reviewed the task-item CSS and ensured that long titles wrap correctly using:
+
+```css
+.task-details {
+  min-width: 0;
+}
+
+.task-title {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+```
+
+This keeps long task names inside the available layout instead of breaking the UI.
+
+### 3. ESLint configuration issue
+
+During development, the initial ESLint configuration caused an error because the installed React Hooks ESLint plugin version did not provide the configuration that was being referenced.
+
+The configuration was reviewed and corrected to use the supported React Hooks configuration.
+
+### 4. localStorage edge cases
+
+The storage logic was reviewed to make sure invalid JSON or unavailable localStorage would not crash the application. The loading logic falls back to an empty task list when stored data cannot be used safely.
+
+---
+
+# How AI Assisted During Development
+
+AI was used as a development assistant throughout the implementation. It helped with project scaffolding, component structure, React state management, localStorage persistence, filtering, responsive styling, validation, and debugging.
+
+The generated code was not accepted without review. I tested the application manually, identified issues, and made corrections after observing the actual behavior of the application.
+
+AI was mainly used to accelerate implementation and provide suggestions, while the final behavior was verified through manual testing and review.
+
+---
+
+# Verification
+
+The completed application was tested for:
+
+- Adding tasks
+- Rejecting empty task titles
+- Rejecting punctuation-only titles
+- Selecting task categories
+- Completing and uncompleting tasks
 - Deleting tasks
-- Filtering tasks by status and category
-- Showing total, completed, and pending task counts
-- Persisting tasks using localStorage
-- A simple responsive interface
+- Filtering by status
+- Filtering by category
+- Correct task statistics
+- localStorage persistence after reload
+- Handling invalid localStorage data
+- Long task title wrapping
+- Responsive layout
 
-Keep the implementation appropriate for a beginner/intermediate React learner. Avoid unnecessary libraries unless there is a strong reason to use them.
+The project was also checked with:
 
-## Prompt 2 — Initial Implementation
+```bash
+npm run lint
+npm run build
+```
 
-Implement the Study Task Dashboard inside `fe-03-study-task-dashboard/`.
-
-Use Vite + React with JavaScript.
-
-Requirements:
-
-- Create the Vite React application inside `fe-03-study-task-dashboard/`.
-- Use functional React components and hooks.
-- Keep task state centralized through a `useTasks` hook.
-- Keep filter state in `App`.
-- Use props and callback functions for child-to-parent interactions.
-- Categories must be exactly: DSA, Frontend, College.
-- Each task must have id, title, category, and completed fields.
-- Add tasks through a controlled form.
-- Prevent empty or whitespace-only task titles.
-- Allow tasks to be marked complete/incomplete.
-- Allow tasks to be deleted.
-- Provide status filtering: All, Pending, Completed.
-- Provide category filtering: All, DSA, Frontend, College.
-- Display total, completed, and pending counts based on the complete task list.
-- Persist tasks using localStorage.
-- Handle malformed localStorage data safely without crashing.
-- Use accessible labels and controls.
-- Make the interface responsive using plain CSS.
-- Do not add Redux, React Router, Context, form libraries, CSS frameworks, or unnecessary dependencies.
-
-Before implementing, briefly explain the files you will create or modify.
-
-After implementation:
-
-1. Run the available checks/tests.
-2. Verify that the app builds successfully.
-3. Check the main user flows: add, complete, delete, filter, refresh/persistence.
-4. Report any problems you find and fix them.
-5. Do not modify README.md, CLAUDE.md, WORKFLOW.md, or files outside `fe-03-study-task-dashboard/`.
-
-## Prompt 3 — Manual Review and Corrections
-
-I manually reviewed the application and found two issues:
-
-1. A task containing only punctuation, such as ".", is currently accepted. A study task should contain at least one letter or number. Keep the existing rejection of empty and whitespace-only titles, and also reject punctuation-only titles.
-
-2. A very long task title causes the task UI/layout to expand or change undesirably. Long titles should wrap within the task item without breaking or overflowing the layout.
-
-Please inspect the existing implementation and make the smallest appropriate changes to fix both issues.
-
-Do not change unrelated functionality.
-After making the changes:
-
-1. Run npm run lint.
-2. Run npm run build.
-3. Verify that "." is rejected.
-4. Verify that a normal title such as "Practice DSA" is accepted.
-5. Verify that a very long title wraps without breaking the layout.
-
-Explain exactly which files you changed and why.
+Both checks passed.
