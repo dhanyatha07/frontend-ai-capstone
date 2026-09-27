@@ -1,0 +1,220 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #222;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 36px;
+}
+
+main > p {
+  margin: 0;
+  color: #666;
+  font-size: 17px;
+}
+
+/* Problem List */
+
+.problem-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.problem-card {
+  width: 100%;
+  text-align: left;
+  padding: 22px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: white;
+  transition: 0.2s ease;
+}
+
+.problem-card:hover {
+  border-color: #888;
+  transform: translateY(-2px);
+}
+
+.problem-card h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.problem-card p {
+  margin: 0 0 14px;
+  color: #666;
+}
+
+.problem-card span {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Problem Details */
+
+.problem-details {
+  margin-top: 30px;
+  padding: 28px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+}
+
+.problem-details h2 {
+  margin-top: 0;
+  font-size: 28px;
+}
+
+.problem-details h3 {
+  margin-top: 24px;
+}
+
+.problem-details ul {
+  padding-left: 20px;
+}
+
+.problem-details li {
+  margin-bottom: 8px;
+}
+
+/* Attempt Input */
+
+.attempt-input {
+  margin-top: 30px;
+}
+
+.attempt-input textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  resize: vertical;
+  outline: none;
+}
+
+.attempt-input textarea:focus {
+  border-color: #555;
+}
+
+.attempt-input button {
+  margin-top: 12px;
+  padding: 11px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #222;
+  color: white;
+}
+
+.attempt-input button:hover {
+  background: #444;
+}
+
+.input-error {
+  margin: 8px 0;
+  color: #c62828;
+}
+
+/* Loading and Error */
+
+.coach-loading {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+}
+
+.coach-error {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 10px;
+  background: #fff0f0;
+  border: 1px solid #e0a0a0;
+  color: #b71c1c;
+}
+
+/* Coach Feedback */
+
+.coach-feedback {
+  margin-top: 30px;
+  padding: 28px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+}
+
+.coach-feedback h2 {
+  margin-top: 0;
+  font-size: 28px;
+}
+
+.coach-feedback h3 {
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.coach-feedback p {
+  line-height: 1.6;
+}
+
+.coach-feedback button {
+  margin-top: 8px;
+  padding: 10px 16px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  background: white;
+}
+
+.coach-feedback button:hover {
+  background: #f2f2f2;
+}
+
+/* Responsive */
+
+@media (max-width: 700px) {
+  main {
+    padding: 25px 15px 40px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  .problem-list {
+    grid-template-columns: 1fr;
+  }
+
+  .problem-details,
+  .coach-feedback {
+    padding: 20px;
+  }
+}
