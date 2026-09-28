@@ -54,7 +54,7 @@ function App() {
               setCoachResult(result);
             } catch (error) {
               console.error("Failed to get coaching:", error);
-              setError("Unable to get coaching right now. Please try again.");
+              setError(error.message);
             } finally {
               setLoading(false);
             }
