@@ -145,6 +145,13 @@ app.post("/api/analyze", async (req, res) => {
       });
     }
 
+    if (error.status === 503) {
+      return res.status(503).json({
+        error:
+          "AI Coach is temporarily unavailable. Please try again in a few minutes.",
+      });
+    }
+
     res.status(500).json({
       error: "Failed to analyze the attempt.",
     });
