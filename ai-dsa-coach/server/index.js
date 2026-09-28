@@ -10,7 +10,7 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
-const MODEL = "gemini-3.7-flash";
+const MODEL = "gemini-3.8-flash";
 
 const coachResponseSchema = z.object({
   feedback: z.string(),
